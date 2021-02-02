@@ -5,6 +5,7 @@ import com.macro.mall.common.api.CommonResult;
 import com.macro.mall.model.PmsProduct;
 import com.macro.mall.portal.domain.PmsPortalProductDetail;
 import com.macro.mall.portal.domain.PmsProductCategoryNode;
+import com.macro.mall.portal.domain.PmsProductCategoryGoods;
 import com.macro.mall.portal.service.PmsPortalProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -47,6 +48,15 @@ public class PmsPortalProductController {
     @ResponseBody
     public CommonResult<List<PmsProductCategoryNode>> categoryTreeList() {
         List<PmsProductCategoryNode> list = portalProductService.categoryTreeList();
+        return CommonResult.success(list);
+    }
+
+    @ApiOperation("根据分类获取所有商品")
+    @RequestMapping(value = "/categoryGoods/{cid}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<PmsProduct>> categoryGoodsList(@PathVariable Long cid,@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+        List<PmsProduct> list = portalProductService.categoryGoodsList(cid,pageNum,pageSize);
         return CommonResult.success(list);
     }
 

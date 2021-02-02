@@ -7,12 +7,14 @@ import com.macro.mall.mapper.*;
 import com.macro.mall.model.*;
 import com.macro.mall.portal.dao.PortalProductDao;
 import com.macro.mall.portal.domain.PmsPortalProductDetail;
+import com.macro.mall.portal.domain.PmsProductCategoryGoods;
 import com.macro.mall.portal.domain.PmsProductCategoryNode;
 import com.macro.mall.portal.service.PmsPortalProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,6 +78,14 @@ public class PmsPortalProductServiceImpl implements PmsPortalProductService {
         List<PmsProductCategoryNode> result = allList.stream()
                 .filter(item -> item.getParentId().equals(0L))
                 .map(item -> covert(item, allList)).collect(Collectors.toList());
+        return result;
+    }
+
+    @Override
+    public List<PmsProduct> categoryGoodsList(Long cid, Integer pageNum, Integer pageSize) {
+        int offset = pageSize * (pageNum - 1);
+        List<PmsProduct> result = null;
+        result = productMapper.selectByCategory(cid, offset, pageSize);
         return result;
     }
 

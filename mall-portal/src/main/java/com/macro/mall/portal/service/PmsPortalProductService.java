@@ -3,6 +3,7 @@ package com.macro.mall.portal.service;
 import com.macro.mall.model.PmsProduct;
 import com.macro.mall.portal.domain.PmsPortalProductDetail;
 import com.macro.mall.portal.domain.PmsProductCategoryNode;
+import com.macro.mall.portal.domain.PmsProductCategoryGoods;
 
 import java.util.List;
 
@@ -20,6 +21,11 @@ public interface PmsPortalProductService {
      * 以树形结构获取所有商品分类
      */
     List<PmsProductCategoryNode> categoryTreeList();
+
+    /**
+     * 根据分类获取所有商品
+     */
+    List<PmsProduct> categoryGoodsList(Long cid, Integer pageNum, Integer pageSize);
 
     /**
      * 获取前台商品详情

@@ -22,6 +22,8 @@ public interface PmsProductMapper {
 
     PmsProduct selectByPrimaryKey(Long id);
 
+    List<PmsProduct> selectByCategory(Long cid, @Param("offset") Integer offset,@Param("limit") Integer limit);
+
     int updateByExampleSelective(@Param("record") PmsProduct record, @Param("example") PmsProductExample example);
 
     int updateByExampleWithBLOBs(@Param("record") PmsProduct record, @Param("example") PmsProductExample example);

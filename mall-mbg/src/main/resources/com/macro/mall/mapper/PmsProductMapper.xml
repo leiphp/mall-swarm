@@ -900,4 +900,16 @@
       product_category_name = #{productCategoryName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectByCategory" resultMap="com.macro.mall.mapper.PmsProductMapper.BaseResultMap">
+        SELECT p.*
+        FROM
+            pms_product p
+        WHERE
+            p.product_category_id = #{cid}
+            AND p.publish_status = 1
+            AND p.delete_status = 0
+        ORDER BY
+            p.sort DESC
+        LIMIT #{offset}, #{limit};
+    </select>
 </mapper>
