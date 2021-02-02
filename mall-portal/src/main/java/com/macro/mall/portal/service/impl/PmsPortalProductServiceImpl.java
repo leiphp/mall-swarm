@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -82,10 +84,13 @@ public class PmsPortalProductServiceImpl implements PmsPortalProductService {
     }
 
     @Override
-    public List<PmsProduct> categoryGoodsList(Long cid, Integer pageNum, Integer pageSize) {
+    public Map<String,Object> categoryGoodsList(Long cid, Integer pageNum, Integer pageSize) {
         int offset = pageSize * (pageNum - 1);
-        List<PmsProduct> result = null;
-        result = productMapper.selectByCategory(cid, offset, pageSize);
+        List<PmsProduct> pageList = productMapper.selectByCategory(cid, offset, pageSize);
+        Long total = portalProductDao.getTotal(cid);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("list", pageList);
+        result.put("total", total);
         return result;
     }
 

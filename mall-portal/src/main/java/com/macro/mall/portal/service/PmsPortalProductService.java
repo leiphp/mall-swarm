@@ -6,6 +6,7 @@ import com.macro.mall.portal.domain.PmsProductCategoryNode;
 import com.macro.mall.portal.domain.PmsProductCategoryGoods;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 前台商品管理Service
@@ -25,7 +26,7 @@ public interface PmsPortalProductService {
     /**
      * 根据分类获取所有商品
      */
-    List<PmsProduct> categoryGoodsList(Long cid, Integer pageNum, Integer pageSize);
+    Map<String,Object> categoryGoodsList(Long cid, Integer pageNum, Integer pageSize);
 
     /**
      * 获取前台商品详情

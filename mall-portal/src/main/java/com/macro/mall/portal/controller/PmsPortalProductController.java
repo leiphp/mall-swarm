@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 前台商品管理Controller
@@ -54,10 +55,10 @@ public class PmsPortalProductController {
     @ApiOperation("根据分类获取所有商品")
     @RequestMapping(value = "/categoryGoods/{cid}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<PmsProduct>> categoryGoodsList(@PathVariable Long cid,@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+    public CommonResult<Map> categoryGoodsList(@PathVariable Long cid,@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
-        List<PmsProduct> list = portalProductService.categoryGoodsList(cid,pageNum,pageSize);
-        return CommonResult.success(list);
+        Map<String, Object> data = portalProductService.categoryGoodsList(cid,pageNum,pageSize);
+        return CommonResult.success(data);
     }
 
     @ApiOperation("获取前台商品详情")

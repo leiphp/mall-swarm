@@ -4,6 +4,7 @@ import com.macro.mall.model.SmsCoupon;
 import com.macro.mall.portal.domain.CartProduct;
 import com.macro.mall.portal.domain.PromotionProduct;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -15,4 +16,7 @@ public interface PortalProductDao {
     CartProduct getCartProduct(@Param("id") Long id);
     List<PromotionProduct> getPromotionProductList(@Param("ids") List<Long> ids);
     List<SmsCoupon> getAvailableCouponList(@Param("productId") Long productId,@Param("productCategoryId")Long productCategoryId);
+
+    @Select("select count(id) from pms_product where publish_status = 1 and delete_status =0 and product_category_id= #{cid}")
+    Long getTotal(Long cid);
 }
