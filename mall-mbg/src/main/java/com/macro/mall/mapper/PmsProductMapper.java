@@ -20,6 +20,16 @@ public interface PmsProductMapper {
     List<PmsProduct> selectByExampleWithBLOBs(PmsProductExample example);
 
     List<PmsProduct> selectByExample(PmsProductExample example);
+    /**
+     * 获取人气推荐总数
+     */
+    @Select(" SELECT count(*)\n" +
+            "        FROM\n" +
+            "            pms_product\n" +
+            "        WHERE\n" +
+            "            delete_status = 0\n" +
+            "            AND publish_status = 1")
+    Long getrRecProductTotal();
 
     PmsProduct selectByPrimaryKey(Long id);
 

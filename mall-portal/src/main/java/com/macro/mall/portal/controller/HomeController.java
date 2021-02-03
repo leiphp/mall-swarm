@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 首页内容管理Controller
@@ -36,10 +37,10 @@ public class HomeController {
     @ApiOperation("分页获取推荐商品")
     @RequestMapping(value = "/recommendProductList", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<PmsProduct>> recommendProductList(@RequestParam(value = "pageSize", defaultValue = "4") Integer pageSize,
+    public CommonResult<Map> recommendProductList(@RequestParam(value = "pageSize", defaultValue = "4") Integer pageSize,
                                                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        List<PmsProduct> productList = homeService.recommendProductList(pageSize, pageNum);
-        return CommonResult.success(productList);
+        Map<String, Object> data = homeService.recommendProductList(pageSize, pageNum);
+        return CommonResult.success(data);
     }
 
     @ApiOperation("获取首页商品分类")
@@ -63,18 +64,18 @@ public class HomeController {
     @ApiOperation("分页获取人气推荐商品")
     @RequestMapping(value = "/hotProductList", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<PmsProduct>> hotProductList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+    public CommonResult<Map> hotProductList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                          @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
-        List<PmsProduct> productList = homeService.hotProductList(pageNum,pageSize);
-        return CommonResult.success(productList);
+        Map<String, Object> data = homeService.hotProductList(pageNum,pageSize);
+        return CommonResult.success(data);
     }
 
     @ApiOperation("分页获取新品推荐商品")
     @RequestMapping(value = "/newProductList", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<PmsProduct>> newProductList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+    public CommonResult<Map> newProductList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                          @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
-        List<PmsProduct> productList = homeService.newProductList(pageNum,pageSize);
-        return CommonResult.success(productList);
+        Map<String,Object> data = homeService.newProductList(pageNum,pageSize);
+        return CommonResult.success(data);
     }
 }

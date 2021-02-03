@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 首页内容管理Service实现类
@@ -56,14 +58,23 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public List<PmsProduct> recommendProductList(Integer pageSize, Integer pageNum) {
+    public Map<String,Object> recommendProductList(Integer pageSize, Integer pageNum) {
         // TODO: 2019/1/29 暂时默认推荐所有商品
         PageHelper.startPage(pageNum,pageSize);
         PmsProductExample example = new PmsProductExample();
         example.createCriteria()
                 .andDeleteStatusEqualTo(0)
                 .andPublishStatusEqualTo(1);
-        return productMapper.selectByExample(example);
+
+        List<PmsProduct> pageList;
+        Long total;
+        pageList = productMapper.selectByExample(example);
+        total = productMapper.getrRecProductTotal();
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("list", pageList);
+        result.put("total", total);
+
+        return result;
     }
 
     @Override
@@ -89,15 +100,29 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public List<PmsProduct> hotProductList(Integer pageNum, Integer pageSize) {
+    public Map<String,Object> hotProductList(Integer pageNum, Integer pageSize) {
         int offset = pageSize * (pageNum - 1);
-        return homeDao.getHotProductList(offset, pageSize);
+        List<PmsProduct> pageList;
+        Long total;
+        pageList = homeDao.getHotProductList(offset, pageSize);
+        total = homeDao.getHotProductTotal();
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("list", pageList);
+        result.put("total", total);
+        return result;
     }
 
     @Override
-    public List<PmsProduct> newProductList(Integer pageNum, Integer pageSize) {
+    public Map<String,Object> newProductList(Integer pageNum, Integer pageSize) {
         int offset = pageSize * (pageNum - 1);
-        return homeDao.getNewProductList(offset, pageSize);
+        List<PmsProduct> pageList;
+        Long total;
+        pageList = homeDao.getNewProductList(offset, pageSize);
+        total = homeDao.getNewProductTotal();
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("list", pageList);
+        result.put("total", total);
+        return result;
     }
 
     private HomeFlashPromotion getHomeFlashPromotion() {

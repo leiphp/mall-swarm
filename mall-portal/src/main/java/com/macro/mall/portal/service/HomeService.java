@@ -6,6 +6,7 @@ import com.macro.mall.model.PmsProductCategory;
 import com.macro.mall.portal.domain.HomeContentResult;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 首页内容管理Service
@@ -21,7 +22,7 @@ public interface HomeService {
     /**
      * 首页商品推荐
      */
-    List<PmsProduct> recommendProductList(Integer pageSize, Integer pageNum);
+    Map<String,Object> recommendProductList(Integer pageSize, Integer pageNum);
 
     /**
      * 获取商品分类
@@ -38,10 +39,10 @@ public interface HomeService {
     /**
      * 分页获取人气推荐商品
      */
-    List<PmsProduct> hotProductList(Integer pageNum, Integer pageSize);
+    Map<String,Object> hotProductList(Integer pageNum, Integer pageSize);
 
     /**
      * 分页获取新品推荐商品
      */
-    List<PmsProduct> newProductList(Integer pageNum, Integer pageSize);
+    Map<String,Object> newProductList(Integer pageNum, Integer pageSize);
 }
