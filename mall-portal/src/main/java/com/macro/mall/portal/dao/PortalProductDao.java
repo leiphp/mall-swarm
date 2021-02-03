@@ -19,4 +19,7 @@ public interface PortalProductDao {
 
     @Select("select count(id) from pms_product where publish_status = 1 and delete_status =0 and product_category_id= #{cid}")
     Long getTotal(Long cid);
+
+    @Select("select count(id) from pms_product where publish_status = 1 and delete_status =0")
+    Long getAllTotal();
 }

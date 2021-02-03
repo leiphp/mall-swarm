@@ -4,6 +4,7 @@ import com.macro.mall.model.PmsProduct;
 import com.macro.mall.model.PmsProductExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface PmsProductMapper {
     long countByExample(PmsProductExample example);
@@ -23,6 +24,17 @@ public interface PmsProductMapper {
     PmsProduct selectByPrimaryKey(Long id);
 
     List<PmsProduct> selectByCategory(Long cid, @Param("offset") Integer offset,@Param("limit") Integer limit);
+
+    @Select("SELECT p.*\n" +
+            "        FROM\n" +
+            "            pms_product p\n" +
+            "        WHERE\n" +
+            "            p.publish_status = 1\n" +
+            "            AND p.delete_status = 0\n" +
+            "        ORDER BY\n" +
+            "            p.sort DESC\n" +
+            "        LIMIT #{offset}, #{limit}")
+    List<PmsProduct> selectAllGoods(@Param("offset") Integer offset,@Param("limit") Integer limit);
 
     int updateByExampleSelective(@Param("record") PmsProduct record, @Param("example") PmsProductExample example);
 

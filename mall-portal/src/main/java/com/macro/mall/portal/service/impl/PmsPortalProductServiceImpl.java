@@ -86,8 +86,15 @@ public class PmsPortalProductServiceImpl implements PmsPortalProductService {
     @Override
     public Map<String,Object> categoryGoodsList(Long cid, Integer pageNum, Integer pageSize) {
         int offset = pageSize * (pageNum - 1);
-        List<PmsProduct> pageList = productMapper.selectByCategory(cid, offset, pageSize);
-        Long total = portalProductDao.getTotal(cid);
+        List<PmsProduct> pageList;
+        Long total;
+        if (cid==0) {
+            pageList = productMapper.selectAllGoods(offset, pageSize);
+            total = portalProductDao.getAllTotal();
+        } else {
+            pageList = productMapper.selectByCategory(cid, offset, pageSize);
+            total = portalProductDao.getTotal(cid);
+        }
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("list", pageList);
         result.put("total", total);
